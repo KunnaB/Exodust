@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exodust — Built for Excellence</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #fafaf8;
+      --cream: #f4f1eb;
+      --gold: #c9a84c;
+      --gold-light: #e8d5a3;
+      --grey: #6b6b6b;
+      --grey-light: #e8e8e4;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--white);
+      color: var(--black);
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 4rem;
+      background: rgba(250,250,248,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--grey-light);
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--black);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--grey);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--black); }
+
+    .nav-cta {
+      background: var(--black);
+      color: var(--white) !important;
+      padding: 0.6rem 1.4rem;
+      border-radius: 2px;
+    }
+
+    .nav-cta:hover { background: var(--gold); color: var(--black) !important; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 4rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.2s;
+    }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      max-width: 14ch;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.4s;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      margin-top: 2rem;
+      font-size: 1rem;
+      color: var(--grey);
+      max-width: 40ch;
+      line-height: 1.8;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.6s;
+    }
+
+    .hero-actions {
+      margin-top: 3rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.8s;
+    }
+
+    .btn-primary {
+      background: var(--black);
+      color: var(--white);
+      padding: 1rem 2.2rem;
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.25s, color 0.25s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover { background: var(--gold); color: var(--black); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--black);
+      padding: 1rem 2.2rem;
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      border: 1px solid var(--grey-light);
+      cursor: pointer;
+      transition: border-color 0.25s, color 0.25s;
+      display: inline-block;
+    }
+
+    .btn-secondary:hover { border-color: var(--black); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 3rem;
+      left: 4rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--grey);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 1.2s;
+    }
+
+    .hero-scroll::before {
+      content: '';
+      width: 40px;
+      height: 1px;
+      background: var(--grey);
+    }
+
+    /* DIVIDER */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--grey-light);
+      margin: 0 4rem;
+      width: calc(100% - 8rem);
+    }
+
+    /* STATS BAR */
+    .stats-bar {
+      display: flex;
+      justify-content: space-around;
+      padding: 3rem 4rem;
+      border-top: 1px solid var(--grey-light);
+      border-bottom: 1px solid var(--grey-light);
+    }
+
+    .stat { text-align: center; }
+
+    .stat-number {
+      font-family: var(--serif);
+      font-size: 2.5rem;
+      font-weight: 400;
+      color: var(--black);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-top: 0.3rem;
+    }
+
+    /* SECTION SHARED */
+    section { padding: 7rem 4rem; }
+
+    .section-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 300;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-body {
+      font-size: 0.95rem;
+      color: var(--grey);
+      max-width: 50ch;
+      line-height: 1.9;
+    }
+
+    /* ABOUT */
+    .about {
+      background: var(--cream);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .about-visual {
+      position: relative;
+      height: 400px;
+    }
+
+    .about-box {
+      position: absolute;
+      border-radius: 2px;
+    }
+
+    .about-box-1 {
+      width: 75%;
+      height: 80%;
+      top: 0; left: 0;
+      background: var(--black);
+    }
+
+    .about-box-2 {
+      width: 50%;
+      height: 50%;
+      bottom: 0; right: 0;
+      background: var(--gold);
+      opacity: 0.7;
+    }
+
+    .about-box-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-30%, -50%);
+      font-family: var(--serif);
+      font-size: 4rem;
+      color: var(--white);
+      font-weight: 300;
+      z-index: 2;
+      line-height: 1;
+    }
+
+    /* SERVICES */
+    .services { background: var(--white); }
+
+    .services-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2px;
+      background: var(--grey-light);
+    }
+
+    .service-card {
+      background: var(--white);
+      padding: 3.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+
+    .service-card:hover { background: var(--cream); }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 0;
+      background: var(--gold);
+      transition: height 0.4s ease;
+    }
+
+    .service-card:hover::before { height: 100%; }
+
+    .service-number {
+      font-family: var(--serif);
+      font-size: 4rem;
+      font-weight: 300;
+      color: var(--grey-light);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-name {
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    .service-desc {
+      font-size: 0.88rem;
+      color: var(--grey);
+      line-height: 1.9;
+      margin-bottom: 2rem;
+    }
+
+    .service-includes {
+      list-style: none;
+      margin-bottom: 2.5rem;
+    }
+
+    .service-includes li {
+      font-size: 0.82rem;
+      color: var(--grey);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--grey-light);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .service-includes li::before {
+      content: '—';
+      color: var(--gold);
+      font-size: 0.7rem;
+    }
+
+    .service-price {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+      color: var(--black);
+    }
+
+    .service-price span {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      color: var(--grey);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-left: 0.5rem;
+    }
+
+    /* PROCESS */
+    .process {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .process .section-title { color: var(--white); }
+    .process .section-body { color: rgba(255,255,255,0.5); }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-top: 5rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .process-step {
+      padding: 3rem 2rem 3rem 0;
+      border-right: 1px solid rgba(255,255,255,0.1);
+      position: relative;
+    }
+
+    .process-step:last-child { border-right: none; padding-right: 0; }
+    .process-step:not(:first-child) { padding-left: 2rem; }
+
+    .step-num {
+      font-family: var(--serif);
+      font-size: 3.5rem;
+      color: rgba(255,255,255,0.08);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .step-title {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      color: var(--white);
+      margin-bottom: 0.8rem;
+      font-weight: 400;
+    }
+
+    .step-desc {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.8;
+    }
+
+    .step-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      position: absolute;
+      top: -3px;
+      left: 0;
+    }
+
+    /* CTA */
+    .cta-section {
+      background: var(--cream);
+      text-align: center;
+      padding: 8rem 4rem;
+    }
+
+    .cta-section .section-title { margin: 0 auto 1.5rem; max-width: 18ch; }
+    .cta-section .section-body { margin: 0 auto 3rem; text-align: center; }
+
+    .cta-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--black);
+      color: rgba(255,255,255,0.4);
+      padding: 3rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-logo {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--white); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { padding: 7rem 1.5rem 4rem; }
+      .hero-scroll { left: 1.5rem; }
+      section { padding: 5rem 1.5rem; }
+      .about { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 1.5rem; }
+      .about-visual { height: 280px; }
+      .services-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .stats-bar { padding: 2rem 1.5rem; flex-wrap: wrap; gap: 2rem; }
+      footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2.5rem 1.5rem; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+      .cta-section { padding: 5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Exodust</a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#process">How It Works</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#career-compass" class="nav-cta">Get Started</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-tag">Career &amp; Excellence Platform</p>
+    <h1>You were built for <em>more.</em><br>We'll prove it.</h1>
+    <p class="hero-sub">Exodust helps you find the right career, build the skills to get there, and step into the role you were made for.</p>
+    <div class="hero-actions">
+      <a href="#career-compass" class="btn-primary">Find Your Career for £50</a>
+      <a href="#services" class="btn-secondary">Explore Services</a>
+    </div>
+    <div class="hero-scroll">Scroll to explore</div>
+  </section>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat">
+      <span class="stat-number">2</span>
+      <span class="stat-label">Core Services</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">1:1</span>
+      <span class="stat-label">Personal Consultation</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">100%</span>
+      <span class="stat-label">Outcome Focused</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">0</span>
+      <span class="stat-label">Guesswork</span>
+    </div>
+  </div>
+
+  <!-- COMMUNITY BAR -->
+  <div style="background:var(--black); padding:1.2rem 4rem; text-align:center;">
+    <p style="font-family:var(--sans); font-size:0.82rem; color:rgba(255,255,255,0.6); letter-spacing:0.08em;">Our community now includes professionals at <strong style="color:var(--gold); font-weight:400;">NHS</strong>, <strong style="color:var(--gold); font-weight:400;">DWP</strong>, and organisations across the world.</p>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-text reveal">
+      <p class="section-tag">About Exodust</p>
+      <h2 class="section-title">A platform built on purpose, not promises.</h2>
+      <p class="section-body">Most people don't lack potential. They lack direction. Exodust exists to change that. We combine strategic career mapping with rigorous skills training so that every person who comes through our doors leaves ready, not just motivated.</p>
+      <br />
+      <p class="section-body">From discovering the right path to landing the right role, Exodust walks with you through every stage.</p>
+    </div>
+    <div class="about-visual reveal">
+      <div class="about-box about-box-1"></div>
+      <div class="about-box about-box-2"></div>
+      <div class="about-box-text">Ex<br>od<br>ust</div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="services-header reveal">
+      <div>
+        <p class="section-tag">Our Services</p>
+        <h2 class="section-title">Three paths.<br>One destination.</h2>
+      </div>
+      <p style="font-size:0.85rem; color:var(--grey); max-width:30ch; line-height:1.8;">Three levels of support. One destination. Start where you are and go as far as you want to.</p>
+    </div>
+
+    <div class="services-grid reveal">
+      <!-- Career Compass -->
+      <div class="service-card" id="career-compass">
+        <div class="service-number">01</div>
+        <h3 class="service-name">Career Compass</h3>
+        <p class="service-desc">Not sure which career is right for you? Career Compass gives you clarity. We analyse your strengths, interests, and potential, then hand you a personalised roadmap so you know exactly where you're going and why.</p>
+        <ul class="service-includes">
+          <li>1-to-1 consultation call with your consultant</li>
+          <li>3 matched career roles with 1 recommended path</li>
+          <li>Full learning path simulation, beginner to advanced</li>
+        </ul>
+        <div class="service-price">£50 <span>one-time</span></div>
+        <a href="https://wa.me/+440000000000?text=Hi%2C%20I%27d%20like%20to%20get%20started%20with%20Career%20Compass" class="btn-primary" target="_blank">Pay &amp; Get Started</a>
+      </div>
+
+      <!-- The Blueprint -->
+      <div class="service-card" id="blueprint">
+        <div class="service-number">02</div>
+        <h3 class="service-name">The Blueprint</h3>
+        <p class="service-desc">You know your direction. Now it is time to build. The Blueprint gives you a fully structured learning plan, the resources to execute it, and dedicated guidance from someone invested in seeing you succeed. Your time, your pace, our support.</p>
+        <ul class="service-includes">
+          <li>Full personalised learning path built around your target career</li>
+          <li>Courses and learning resources sourced, vetted and assigned on your behalf</li>
+          <li>Course and tools costs covered within your programme fee</li>
+          <li>Bi-weekly 1-to-1 sessions to review progress, address challenges and keep momentum</li>
+          <li>A project brief assigned by your consultant, completed independently and reviewed with detailed feedback</li>
+          <li>A closing mock interview or presentation session to assess your readiness</li>
+          <li>A written readiness report so you know exactly where you stand and what your next step should be</li>
+        </ul>
+        <div class="service-price">£750 <span>one-time</span></div>
+        <a href="https://wa.me/+440000000000?text=Hi%2C%20I%27d%20like%20to%20find%20out%20more%20about%20The%20Blueprint" class="btn-primary" target="_blank">Speak to Us</a>
+      </div>
+
+      <!-- The Refinery -->
+      <div class="service-card" id="refinery">
+        <div class="service-number">03</div>
+        <h3 class="service-name">The Refinery</h3>
+        <p class="service-desc">The Refinery is where potential becomes proof. A high-touch, cohort-based programme built around real accountability, genuine hand-holding and relentless confidence building. We do not just teach you. We prepare you for the room.</p>
+        <ul class="service-includes">
+          <li>Courses sourced, vetted and assigned for your career path, with all course and resource costs included in your fee</li>
+          <li>Weekly hands-on project work that builds a portfolio employers can see and trust</li>
+          <li>A major capstone project that demonstrates the full depth of your capability</li>
+          <li>Weekly live sessions structured around active challenge and feedback, so rigour becomes second nature</li>
+          <li>Dedicated interview preparation, sharpening how you think, speak and present under pressure</li>
+          <li>A boardroom-style graduation panel with new faces who will challenge you on your work, just like a real interview</li>
+          <li>Dedicated mentor support from practitioners already working in your target field</li>
+          <li>Personal guidance throughout, you are never left to figure it out alone</li>
+          <li>Your defence is your graduation. The standard of your work earns your badge.</li>
+        </ul>
+        <div class="service-price">£1,499 <span>beta cohort</span></div>
+        <p style="font-size:0.78rem; color:var(--gold); margin-bottom:0.4rem; letter-spacing:0.04em;">⚡ Founding price. Rises to £1,999 after this cohort.</p>
+        <p style="font-size:0.78rem; color:var(--grey); margin-bottom:1.5rem;">Limited spots available. Apply to reserve yours.</p>
+        <a href="https://wa.me/+440000000000?text=Hi%2C%20I%27d%20like%20to%20apply%20for%20The%20Refinery" class="btn-primary" target="_blank">Speak to Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process" id="process">
+    <div class="reveal">
+      <p class="section-tag">How It Works</p>
+      <h2 class="section-title">Clarity. Direction.<br>Purpose.</h2>
+      <p class="section-body">A clear, structured journey with someone beside you at every step. No confusion, no guesswork. Just consistent progress toward the role you were made for.</p>
+    </div>
+
+    <div class="process-steps reveal">
+      <div class="process-step">
+        <div class="step-dot"></div>
+        <div class="step-num">01</div>
+        <h4 class="step-title">Find Direction</h4>
+        <p class="step-desc">Career Compass identifies your best-fit career paths based on who you are, not just what you've done.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-dot"></div>
+        <div class="step-num">02</div>
+        <h4 class="step-title">Build Skills</h4>
+        <p class="step-desc">The Refinery assigns your learning path. You take the courses. We ensure you go deep, not just broad.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-dot"></div>
+        <div class="step-num">03</div>
+        <h4 class="step-title">Prove It</h4>
+        <p class="step-desc">Projects, mentorship, and a defence session that proves your competence to employers and to yourself.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-dot"></div>
+        <div class="step-num">04</div>
+        <h4 class="step-title">Step In</h4>
+        <p class="step-desc">Graduate job-ready. Interview-ready. Confident, prepared, and backed by a track record of real work.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="contact">
+    <div class="reveal">
+      <p class="section-tag">Get Started Today</p>
+      <h2 class="section-title">Your next chapter starts with one decision.</h2>
+      <p class="section-body">Not sure where to begin? Start with Career Compass. Already know your direction? Apply for The Refinery.</p>
+      <div class="cta-actions">
+        <a href="https://wa.me/+440000000000?text=Hi%2C%20I%27d%20like%20to%20get%20started%20with%20Career%20Compass" class="btn-primary" target="_blank">Career Compass for £50</a>
+        <a href="https://wa.me/+440000000000?text=Hi%2C%20I%27d%20like%20to%20apply%20for%20The%20Refinery" class="btn-secondary" target="_blank">Speak to Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="#" class="footer-logo">Exodust</a>
+    <ul class="footer-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#process">How It Works</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <p>© 2026 Exodust. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
